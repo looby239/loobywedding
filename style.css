@@ -1055,3 +1055,107 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
   }
 }
+
+/* ==========================================================================
+   TEMPLATE HIGHLIGHT SECTION (HOMEPAGE EMBED)
+   ========================================================================== */
+.template-highlight-container {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  background: #FFFFFF;
+  padding: 3rem;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  margin-top: 2rem;
+}
+
+.template-highlight-info {
+  flex: 1.2;
+}
+
+.template-highlight-info .template-name {
+  font-size: 2.25rem;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+}
+
+.template-highlight-info .template-desc {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.template-highlight-features {
+  margin-bottom: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.template-highlight-features li {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.template-highlight-features li i {
+  font-size: 1.1rem;
+}
+
+.template-highlight-preview {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+}
+
+/* Phone Mockup Wrapper */
+.phone-mockup {
+  position: relative;
+  width: 290px;
+  height: 540px;
+  border: 12px solid #1E293B; /* Slate bezel */
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+  background: #FFFFFF;
+}
+
+/* Phone notch/camera details for premium look */
+.phone-mockup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 18px;
+  background: #1E293B;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 10;
+}
+
+.phone-mockup iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Responsive styling for template highlight container */
+@media (max-width: 992px) {
+  .template-highlight-container {
+    flex-direction: column-reverse;
+    gap: 3rem;
+    padding: 2rem;
+  }
+  .template-highlight-features {
+    grid-template-columns: 1fr;
+  }
+}
