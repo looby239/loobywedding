@@ -351,9 +351,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .text-highlight {
-  color: var(--color-primary);
+  color: #FFFFFF;
+  background-color: var(--color-primary);
+  padding: 0.05em 0.3em;
+  border-radius: 8px;
   position: relative;
   white-space: nowrap;
+  display: inline-block;
 }
 
 .hero-desc {
