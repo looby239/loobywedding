@@ -9,26 +9,208 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     .all-templates-header {
-      padding: 3rem 1rem;
-      background: #fff;
+      padding: 4rem 1rem 3.5rem 1rem;
+      background: #FFFFFF;
       border-bottom: 1px solid var(--color-border);
       text-align: center;
+      position: relative;
     }
 
     .all-templates-header h1 {
-      margin-bottom: 1rem;
-      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 2.75rem;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      color: var(--color-secondary);
+      letter-spacing: -0.02em;
     }
 
-    .category-section {
-      padding: 4rem 0;
+    .all-templates-header .section-desc {
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--color-text-light);
     }
 
-    .category-title {
-      font-size: 2rem;
-      margin-bottom: 2.5rem;
-      text-align: center;
+    /* Filter Panel Styling */
+    .template-filters {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      padding: 0.75rem 1.75rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      color: var(--color-text-light);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-sm);
+      outline: none;
+    }
+
+    .filter-tab i {
+      font-size: 0.9rem;
+    }
+
+    .filter-tab:hover {
+      border-color: var(--color-primary);
       color: var(--color-primary);
+      transform: translateY(-2px);
+    }
+
+    .filter-tab.active {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      border-color: var(--color-primary);
+      box-shadow: 0 4px 15px rgba(143, 184, 237, 0.4);
+    }
+
+    /* Templates Grid Area */
+    .templates-section {
+      padding: 4rem 0 7rem 0;
+      min-height: 50vh;
+    }
+
+    /* Card animation */
+    .template-card {
+      transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease;
+      transform-origin: center;
+    }
+
+    .template-card.hidden {
+      display: none;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    /* Coming Soon Panel Styling */
+    .coming-soon-panel {
+      width: 100%;
+      max-width: 600px;
+      margin: 2rem auto 4rem auto;
+      background: #FFFFFF;
+      border: 2px dashed var(--color-primary);
+      border-radius: 24px;
+      padding: 4.5rem 2rem;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .coming-soon-icon {
+      font-size: 3.5rem;
+      color: var(--color-primary);
+      margin-bottom: 1.5rem;
+      animation: pulseMagic 2s infinite ease-in-out;
+      display: inline-block;
+    }
+
+    .coming-soon-content h3 {
+      font-size: 1.85rem;
+      color: var(--color-secondary);
+      margin-bottom: 0.75rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+    }
+
+    .coming-soon-content p {
+      color: var(--color-text-light);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.65;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .notify-form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 450px;
+      margin: 0 auto;
+      background: var(--color-bg-alt);
+      padding: 0.4rem;
+      border-radius: 50px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .notify-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 0.5rem 1.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      outline: none;
+      color: var(--color-text);
+    }
+
+    .notify-input::placeholder {
+      color: var(--color-text-light);
+      opacity: 0.7;
+    }
+
+    .notify-btn {
+      border-radius: 50px !important;
+      padding: 0.6rem 1.75rem !important;
+      font-size: 0.95rem !important;
+      background-color: var(--color-primary) !important;
+      color: #FFFFFF !important;
+      border: none !important;
+      box-shadow: none !important;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .notify-btn:hover {
+      background-color: var(--color-primary-hover) !important;
+      transform: translateY(-1px) scale(1.02) !important;
+    }
+
+    @keyframes pulseMagic {
+      0% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 576px) {
+      .notify-form {
+        flex-direction: column;
+        background: transparent;
+        border: none;
+        padding: 0;
+        gap: 0.75rem;
+        box-shadow: none;
+      }
+      .notify-input {
+        background: var(--color-bg-alt);
+        border: 1px solid var(--color-border);
+        border-radius: 50px;
+        padding: 0.75rem 1.5rem;
+        width: 100%;
+      }
+      .notify-btn {
+        width: 100%;
+        padding: 0.8rem !important;
+      }
     }
   </style>
 </head>
@@ -40,40 +222,46 @@
         <i class="fas fa-rings"></i> Looby - Thiệp mời điện tử
       </a>
       <div class="nav-actions">
-        <a href="../index.html" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Trở về trang
-          chính</a>
+        <a href="../index.html" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Trở về trang chính</a>
       </div>
     </div>
   </header>
 
   <main style="padding-top: var(--header-height);">
+    <!-- Header with Filters -->
     <div class="all-templates-header">
       <div class="container">
         <h1>Bộ Sưu Tập Mẫu Thiệp Looby</h1>
         <p class="section-desc center">Khám phá toàn bộ các mẫu thiết kế thiệp điện tử ấn tượng nhất của chúng tôi.</p>
 
-        <div class="template-filters"
-          style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <a href="#thiep-cuoi" class="filter-btn" style="text-decoration: none; color: var(--color-text);">Thiệp
-            Cưới</a>
-          <a href="#thiep-sinh-nhat" class="filter-btn" style="text-decoration: none; color: var(--color-text);">Thiệp
-            Sinh Nhật</a>
-          <a href="#thiep-thoi-noi" class="filter-btn" style="text-decoration: none; color: var(--color-text);">Thiệp
-            Thôi Nôi</a>
-          <a href="#thiep-khac" class="filter-btn" style="text-decoration: none; color: var(--color-text);">Thiệp
-            Khác</a>
+        <!-- Tab List Panel -->
+        <div class="template-filters">
+          <button class="filter-tab active" data-target="all">
+            <i class="fas fa-border-all"></i> Tất Cả
+          </button>
+          <button class="filter-tab" data-target="thiep-cuoi">
+            <i class="fas fa-heart"></i> Thiệp Cưới
+          </button>
+          <button class="filter-tab" data-target="thiep-sinh-nhat">
+            <i class="fas fa-birthday-cake"></i> Thiệp Sinh Nhật
+          </button>
+          <button class="filter-tab" data-target="thiep-thoi-noi">
+            <i class="fas fa-baby-carriage"></i> Thiệp Thôi Nôi
+          </button>
+          <button class="filter-tab" data-target="thiep-khac">
+            <i class="fas fa-star"></i> Thiệp Khác
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- THIỆP CƯỚI -->
-    <section id="thiep-cuoi" class="category-section">
+    <!-- Unified Template Grid Section -->
+    <section class="templates-section">
       <div class="container">
-        <h2 class="category-title">Thiệp Cưới</h2>
+        
         <div class="templates-grid">
-
-          <!-- Template 10 -->
-          <div class="template-card">
+          <!-- Template 10 (Wedding) -->
+          <div class="template-card" data-category="thiep-cuoi">
             <div class="template-image-wrapper">
               <img src="../assets/images/template-promise.png" alt="Mẫu thiệp Lời Hứa Vĩnh Cửu" loading="lazy">
               <div class="template-overlay">
@@ -86,8 +274,8 @@
             </div>
           </div>
 
-          <!-- Template 11 -->
-          <div class="template-card">
+          <!-- Template 11 (Wedding) -->
+          <div class="template-card" data-category="thiep-cuoi">
             <div class="template-image-wrapper">
               <img src="../assets/images/template-11/photo1.webp" alt="Mẫu thiệp Mai Lan Trắng" loading="lazy" style="object-fit: cover;">
               <div class="template-overlay">
@@ -100,72 +288,23 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- THIỆP SINH NHẬT -->
-    <section id="thiep-sinh-nhat" class="category-section bg-light">
-      <div class="container">
-        <h2 class="category-title">Thiệp Sinh Nhật</h2>
-        <div class="templates-grid">
-          <!-- Template 7 -->
-          <!-- <div class="template-card">
-            <div class="template-image-wrapper">
-              <img src="../assets/images/template-sinh-nhat.png" alt="Mẫu thiệp sinh nhật" loading="lazy">
-              <div class="template-overlay">
-                <a href="Thiep-sinh-nhat/template-7.html" class="btn btn-outline-white btn-sm mt-2">Xem chi tiết</a>
-              </div>
+        <!-- Coming Soon Panel (Hidden by default) -->
+        <div id="coming-soon-panel" class="coming-soon-panel" style="display: none;">
+          <div class="coming-soon-content">
+            <div class="coming-soon-icon">
+              <i class="fas fa-wand-magic-sparkles"></i>
             </div>
-            <div class="template-info">
-              <h3 class="template-name">Bữa Tiệc Sắc Màu</h3>
-              <p class="template-style">Thiệp sinh nhật</p>
-            </div>
-          </div> -->
+            <h3>Mẫu Thiệp Sắp Ra Mắt!</h3>
+            <p>Đội ngũ Looby đang thiết kế những mẫu thiệp mới vô cùng độc đáo, hiện đại và tinh tế cho chủ đề này. Hãy đăng ký email để nhận thông tin sớm nhất.</p>
+            
+            <form id="notify-form" class="notify-form">
+              <input type="email" placeholder="Nhập email của bạn..." class="notify-input" required>
+              <button type="submit" class="btn btn-primary notify-btn">Nhận thông báo</button>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- THIỆP THÔI NÔI -->
-    <section id="thiep-thoi-noi" class="category-section">
-      <div class="container">
-        <h2 class="category-title">Thiệp Thôi Nôi</h2>
-        <div class="templates-grid">
-          <!-- Template 8 -->
-          <!-- <div class="template-card">
-            <div class="template-image-wrapper">
-              <img src="../assets/images/template-thoi-noi.png" alt="Mẫu thiệp thôi nôi" loading="lazy">
-              <div class="template-overlay">
-                <a href="Thiep-thoi-noi/template-8.html" class="btn btn-outline-white btn-sm mt-2">Xem chi tiết</a>
-              </div>
-            </div>
-            <div class="template-info">
-              <h3 class="template-name">Thiên Thần Nhỏ</h3>
-              <p class="template-style">Thiệp thôi nôi</p>
-            </div>
-          </div> -->
-        </div>
-      </div>
-    </section>
-
-    <!-- THIỆP KHÁC -->
-    <section id="thiep-khac" class="category-section bg-light">
-      <div class="container">
-        <h2 class="category-title">Thiệp Khác</h2>
-        <div class="templates-grid">
-          <!-- Template 9 -->
-          <!-- <div class="template-card">
-            <div class="template-image-wrapper">
-              <img src="../assets/images/template-khac.png" alt="Mẫu thiệp sự kiện khác" loading="lazy">
-              <div class="template-overlay">
-                <a href="Thiep-khac/template-9.html" class="btn btn-outline-white btn-sm mt-2">Xem chi tiết</a>
-              </div>
-            </div>
-            <div class="template-info">
-              <h3 class="template-name">Sự Kiện Đặc Biệt</h3>
-              <p class="template-style">Thiệp khác</p>
-            </div>
-          </div> -->
-        </div>
       </div>
     </section>
   </main>
@@ -178,6 +317,75 @@
     </div>
   </footer>
 
+  <!-- Filter Panel Interaction JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.filter-tab');
+      const cards = document.querySelectorAll('.template-card');
+      const comingSoonPanel = document.getElementById('coming-soon-panel');
+      const templatesGrid = document.querySelector('.templates-grid');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Update active states on tabs
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          const category = tab.getAttribute('data-target');
+          let visibleCount = 0;
+
+          // Toggle visibility on template cards
+          cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === 'all' || cardCategory === category) {
+              card.classList.remove('hidden');
+              visibleCount++;
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+
+          // Show coming soon panel if no cards are visible
+          if (visibleCount === 0) {
+            templatesGrid.style.display = 'none';
+            comingSoonPanel.style.display = 'block';
+          } else {
+            templatesGrid.style.display = 'grid';
+            comingSoonPanel.style.display = 'none';
+          }
+        });
+      });
+
+      // Handle custom coming soon newsletter subscription toast
+      const notifyForm = document.getElementById('notify-form');
+      if (notifyForm) {
+        notifyForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const emailInput = notifyForm.querySelector('.notify-input');
+          if (emailInput && emailInput.value.trim() !== '') {
+            // Remove any existing status message
+            const existingMsg = document.getElementById('notify-status-msg');
+            if (existingMsg) existingMsg.remove();
+
+            const statusMsg = document.createElement('div');
+            statusMsg.id = 'notify-status-msg';
+            statusMsg.style.cssText = 'margin-top: 1.5rem; color: var(--color-success); font-weight: 600; font-size: 0.95rem; animation: fadeInUp 0.4s ease;';
+            statusMsg.innerText = `✓ Đăng ký nhận thông báo thành công cho email: ${emailInput.value.trim()}!`;
+            notifyForm.parentNode.appendChild(statusMsg);
+            
+            emailInput.value = '';
+            
+            // Clean up status message after 5 seconds
+            setTimeout(() => {
+              statusMsg.style.opacity = '0';
+              statusMsg.style.transition = 'opacity 0.5s ease';
+              setTimeout(() => statusMsg.remove(), 500);
+            }, 5000);
+          }
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>
