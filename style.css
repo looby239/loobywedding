@@ -3,9 +3,9 @@
    ========================================================================== */
 :root {
   /* Brand Colors */
-  --color-primary: #D27D78;      /* Dusty Rose */
-  --color-primary-hover: #C16661;
-  --color-primary-light: #F8EBE9;
+  --color-primary: #8FB8ED;      /* Pastel Blue */
+  --color-primary-hover: #7AA8DF;
+  --color-primary-light: #EBF3FC;
   
   --color-secondary: #1E293B;    /* Deep Navy / Slate */
   --color-secondary-hover: #0F172A;
