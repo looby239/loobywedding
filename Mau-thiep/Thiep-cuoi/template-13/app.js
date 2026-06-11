@@ -215,81 +215,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
   // --- Photo Lightbox System ---
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const lightboxClose = document.getElementById('lightbox-close');
-  const lightboxPrev = document.getElementById('lightbox-prev');
-  const lightboxNext = document.getElementById('lightbox-next');
-  
-  // List of all wedding photos for full screen
-  const photosList = [
-    '../../../assets/images/template-13/photo1.webp',
-    '../../../assets/images/template-13/photo2.webp',
-    '../../../assets/images/template-13/photo3.webp',
-    '../../../assets/images/template-13/photo4.webp',
-    '../../../assets/images/template-13/photo5.webp',
-    '../../../assets/images/template-13/photo6.webp',
-    '../../../assets/images/template-13/photo7.webp'
-  ];
-  let currentPhotoIndex = 0;
+  (function() {
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const lbClose = document.getElementById('lightbox-close');
+    const lbPrev = document.getElementById('lightbox-prev');
+    const lbNext = document.getElementById('lightbox-next');
 
-  // Add click listener to gallery items (not img, so overlay doesn't block clicks)
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  galleryItems.forEach((item, index) => {
-    item.style.cursor = 'pointer';
-    item.addEventListener('click', () => {
-      currentPhotoIndex = index + 1; // offset because photo1 is hero photo
-      openLightbox();
-    });
-  });
+    if (!lb || !lbImg) return;
 
-  // Also allow hero image to open lightbox (photo1)
-  const heroImage = document.querySelector('.hero-image');
-  if (heroImage) {
-    heroImage.style.cursor = 'pointer';
-    heroImage.addEventListener('click', () => {
-      currentPhotoIndex = 0;
-      openLightbox();
-    });
-  }
+    const photos = [
+      '../../../assets/images/template-13/photo1.webp',
+      '../../../assets/images/template-13/photo2.webp',
+      '../../../assets/images/template-13/photo3.webp',
+      '../../../assets/images/template-13/photo4.webp',
+      '../../../assets/images/template-13/photo5.webp',
+      '../../../assets/images/template-13/photo6.webp',
+      '../../../assets/images/template-13/photo7.webp'
+    ];
+    let idx = 0;
 
-  function openLightbox() {
-    if (lightbox && lightboxImg) {
-      lightboxImg.src = photosList[currentPhotoIndex];
-      lightbox.classList.add('active');
+    function showPhoto(i) {
+      idx = (i + photos.length) % photos.length;
+      lbImg.src = photos[idx];
+      lb.classList.add('active');
     }
-  }
 
-  if (lightboxClose) {
-    lightboxClose.addEventListener('click', () => {
-      lightbox.classList.remove('active');
-    });
-  }
+    function closeLb() {
+      lb.classList.remove('active');
+    }
 
-  if (lightboxPrev) {
-    lightboxPrev.addEventListener('click', (e) => {
-      e.stopPropagation();
-      currentPhotoIndex = (currentPhotoIndex - 1 + photosList.length) % photosList.length;
-      lightboxImg.src = photosList[currentPhotoIndex];
-    });
-  }
+    // Hero image → photo1
+    const heroImg = document.querySelector('.hero-image');
+    if (heroImg) {
+      heroImg.style.cursor = 'pointer';
+      heroImg.addEventListener('click', () => showPhoto(0));
+    }
 
-  if (lightboxNext) {
-    lightboxNext.addEventListener('click', (e) => {
-      e.stopPropagation();
-      currentPhotoIndex = (currentPhotoIndex + 1) % photosList.length;
-      lightboxImg.src = photosList[currentPhotoIndex];
+    // Gallery items → photo2, photo3, photo4, photo5
+    document.querySelectorAll('.gallery-item').forEach((item, i) => {
+      item.style.cursor = 'pointer';
+      item.addEventListener('click', () => showPhoto(i + 1));
     });
-  }
 
-  if (lightbox) {
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        lightbox.classList.remove('active');
-      }
+    // Controls
+    if (lbClose) lbClose.addEventListener('click', closeLb);
+    if (lbPrev) lbPrev.addEventListener('click', (e) => { e.stopPropagation(); showPhoto(idx - 1); });
+    if (lbNext) lbNext.addEventListener('click', (e) => { e.stopPropagation(); showPhoto(idx + 1); });
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+
+    // Keyboard: Escape to close, Arrow keys to navigate
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') showPhoto(idx - 1);
+      if (e.key === 'ArrowRight') showPhoto(idx + 1);
     });
-  }
+  })();
 
   // --- Custom Alert Toast Dialog ---
   function showCustomAlert(message, title = 'Thông Báo') {
