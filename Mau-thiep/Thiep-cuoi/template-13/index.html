@@ -76,7 +76,7 @@
       <div class="hero-frame-container">
         <div class="hero-frame">
           <img src="../../../assets/images/template-13/photo1.webp" alt="Ảnh cưới Văn An &amp; Mỹ Ngọc"
-            class="hero-image">
+            class="hero-image" onclick="openWeddingLightbox(0)" style="cursor:pointer">
         </div>
       </div>
     </header>
@@ -125,16 +125,16 @@
       <h2 class="section-green-title">Album Ảnh Cưới</h2>
       <p class="section-subtitle">Tình yêu ngọt ngào qua những khung hình</p>
       <div class="gallery-grid">
-        <div class="gallery-item">
+        <div class="gallery-item" onclick="openWeddingLightbox(1)" style="cursor:pointer">
           <img src="../../../assets/images/template-13/photo2.webp" alt="Gallery 1" class="gallery-img">
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item" onclick="openWeddingLightbox(2)" style="cursor:pointer">
           <img src="../../../assets/images/template-13/photo3.webp" alt="Gallery 2" class="gallery-img">
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item" onclick="openWeddingLightbox(3)" style="cursor:pointer">
           <img src="../../../assets/images/template-13/photo4.webp" alt="Gallery 3" class="gallery-img">
         </div>
-        <div class="gallery-item overlay-item" id="gallery-more-trigger">
+        <div class="gallery-item overlay-item" onclick="openWeddingLightbox(4)" style="cursor:pointer">
           <img src="../../../assets/images/template-13/photo5.webp" alt="Gallery 4" class="gallery-img">
           <div class="more-overlay">
             <span>+8 ảnh</span>
@@ -477,15 +477,64 @@
 
   <!-- Photo Lightbox Modal Overlay (For Album click) -->
   <div class="lightbox-overlay" id="lightbox">
-    <button class="lightbox-close" id="lightbox-close">×</button>
+    <button class="lightbox-close" id="lightbox-close" onclick="closeWeddingLightbox()">×</button>
     <div class="lightbox-content">
       <img src="" alt="Photo Fullscreen" class="lightbox-img" id="lightbox-img">
       <div class="lightbox-nav">
-        <button id="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
-        <button id="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+        <button id="lightbox-prev" onclick="event.stopPropagation(); navigateLightbox(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button id="lightbox-next" onclick="event.stopPropagation(); navigateLightbox(1)"><i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
   </div>
+
+  <!-- Inline Lightbox Script (self-contained, no dependency on app.js) -->
+  <script>
+    var weddingPhotos = [
+      '../../../assets/images/template-13/photo1.webp',
+      '../../../assets/images/template-13/photo2.webp',
+      '../../../assets/images/template-13/photo3.webp',
+      '../../../assets/images/template-13/photo4.webp',
+      '../../../assets/images/template-13/photo5.webp',
+      '../../../assets/images/template-13/photo6.webp',
+      '../../../assets/images/template-13/photo7.webp'
+    ];
+    var currentLbIdx = 0;
+
+    function openWeddingLightbox(idx) {
+      currentLbIdx = idx;
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lightbox-img');
+      if (lb && lbImg) {
+        lbImg.src = weddingPhotos[idx];
+        lb.classList.add('active');
+      }
+    }
+
+    function closeWeddingLightbox() {
+      var lb = document.getElementById('lightbox');
+      if (lb) lb.classList.remove('active');
+    }
+
+    function navigateLightbox(dir) {
+      currentLbIdx = (currentLbIdx + dir + weddingPhotos.length) % weddingPhotos.length;
+      var lbImg = document.getElementById('lightbox-img');
+      if (lbImg) lbImg.src = weddingPhotos[currentLbIdx];
+    }
+
+    // Close on overlay click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeWeddingLightbox();
+    });
+
+    // Keyboard support
+    document.addEventListener('keydown', function(e) {
+      var lb = document.getElementById('lightbox');
+      if (!lb || !lb.classList.contains('active')) return;
+      if (e.key === 'Escape') closeWeddingLightbox();
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+  </script>
 
   <script src="app.js"></script>
 </body>

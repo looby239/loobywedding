@@ -215,66 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
-  // --- Photo Lightbox System ---
-  (function() {
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-    const lbClose = document.getElementById('lightbox-close');
-    const lbPrev = document.getElementById('lightbox-prev');
-    const lbNext = document.getElementById('lightbox-next');
-
-    if (!lb || !lbImg) return;
-
-    const photos = [
-      '../../../assets/images/template-13/photo1.webp',
-      '../../../assets/images/template-13/photo2.webp',
-      '../../../assets/images/template-13/photo3.webp',
-      '../../../assets/images/template-13/photo4.webp',
-      '../../../assets/images/template-13/photo5.webp',
-      '../../../assets/images/template-13/photo6.webp',
-      '../../../assets/images/template-13/photo7.webp'
-    ];
-    let idx = 0;
-
-    function showPhoto(i) {
-      idx = (i + photos.length) % photos.length;
-      lbImg.src = photos[idx];
-      lb.classList.add('active');
-    }
-
-    function closeLb() {
-      lb.classList.remove('active');
-    }
-
-    // Hero image → photo1
-    const heroImg = document.querySelector('.hero-image');
-    if (heroImg) {
-      heroImg.style.cursor = 'pointer';
-      heroImg.addEventListener('click', () => showPhoto(0));
-    }
-
-    // Gallery items → photo2, photo3, photo4, photo5
-    document.querySelectorAll('.gallery-item').forEach((item, i) => {
-      item.style.cursor = 'pointer';
-      item.addEventListener('click', () => showPhoto(i + 1));
-    });
-
-    // Controls
-    if (lbClose) lbClose.addEventListener('click', closeLb);
-    if (lbPrev) lbPrev.addEventListener('click', (e) => { e.stopPropagation(); showPhoto(idx - 1); });
-    if (lbNext) lbNext.addEventListener('click', (e) => { e.stopPropagation(); showPhoto(idx + 1); });
-    lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
-
-    // Keyboard: Escape to close, Arrow keys to navigate
-    document.addEventListener('keydown', (e) => {
-      if (!lb.classList.contains('active')) return;
-      if (e.key === 'Escape') closeLb();
-      if (e.key === 'ArrowLeft') showPhoto(idx - 1);
-      if (e.key === 'ArrowRight') showPhoto(idx + 1);
-    });
-  })();
-
   // --- Custom Alert Toast Dialog ---
   function showCustomAlert(message, title = 'Thông Báo') {
     const existingAlert = document.getElementById('custom-toast-alert');
