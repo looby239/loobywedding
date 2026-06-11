@@ -162,6 +162,96 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Photo Lightbox System ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+
+  // List of all wedding photos for full screen
+  const photosList = [
+    '../../../assets/images/template-11/photo1.webp',
+    '../../../assets/images/template-11/photo2.webp',
+    '../../../assets/images/template-11/photo3.webp',
+    '../../../assets/images/template-11/photo4.webp',
+    '../../../assets/images/template-11/photo5.webp',
+    '../../../assets/images/template-11/photo6.webp',
+    '../../../assets/images/template-11/photo7.webp'
+  ];
+  let currentPhotoIndex = 0;
+
+  // Add click listener to all gallery images
+  const galleryImgs = document.querySelectorAll('.gallery-grid .gallery-img');
+  galleryImgs.forEach((img, index) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      currentPhotoIndex = index + 1; // offset because photo1 is hero photo
+      openLightbox();
+    });
+  });
+
+  // Also allow hero image to open lightbox (photo1)
+  const heroImage = document.querySelector('.hero-image');
+  if (heroImage) {
+    heroImage.style.cursor = 'pointer';
+    heroImage.addEventListener('click', () => {
+      currentPhotoIndex = 0;
+      openLightbox();
+    });
+  }
+
+  function openLightbox() {
+    if (lightbox && lightboxImg) {
+      lightboxImg.src = photosList[currentPhotoIndex];
+      lightbox.classList.add('active');
+    }
+  }
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+    });
+  }
+
+  if (lightboxPrev) {
+    lightboxPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentPhotoIndex = (currentPhotoIndex - 1 + photosList.length) % photosList.length;
+      lightboxImg.src = photosList[currentPhotoIndex];
+    });
+  }
+
+  if (lightboxNext) {
+    lightboxNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentPhotoIndex = (currentPhotoIndex + 1) % photosList.length;
+      lightboxImg.src = photosList[currentPhotoIndex];
+    });
+  }
+
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+      }
+    });
+
+    // Keyboard support: Escape to close, arrow keys to navigate
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+      if (e.key === 'ArrowLeft') {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photosList.length) % photosList.length;
+        lightboxImg.src = photosList[currentPhotoIndex];
+      }
+      if (e.key === 'ArrowRight') {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photosList.length;
+        lightboxImg.src = photosList[currentPhotoIndex];
+      }
+    });
+  }
+
   // --- Custom Alert Toast ---
   function showCustomAlert(message, title = 'Thông Báo') {
     // Check if dialog already exists, remove it

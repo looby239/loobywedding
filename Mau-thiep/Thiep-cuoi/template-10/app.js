@@ -52,3 +52,24 @@ function createFloatingHY() {
 
 // Create new floating symbols every 800ms
 setInterval(createFloatingHY, 800);
+
+// --- Photo Lightbox for Gallery Images ---
+document.addEventListener('DOMContentLoaded', () => {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  const allImages = document.querySelectorAll('.gallery-img, .hero img');
+  allImages.forEach((img) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      if (lightbox && lightboxImg) {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox) lightbox.classList.remove('active');
+  });
+});

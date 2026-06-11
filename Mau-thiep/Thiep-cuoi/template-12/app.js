@@ -234,20 +234,22 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   let currentPhotoIndex = 0;
 
-  // Add click listener to gallery elements
-  const galleryItems = document.querySelectorAll('.gallery-item img');
-  galleryItems.forEach((img, index) => {
-    img.addEventListener('click', () => {
+  // Add click listener to gallery items (not img, so overlay doesn't block clicks)
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  galleryItems.forEach((item, index) => {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', () => {
       currentPhotoIndex = index + 1; // offset because photo1 is hero photo
       openLightbox();
     });
   });
 
-  // Highlight trigger element
-  const galleryMoreTrigger = document.getElementById('gallery-more-trigger');
-  if (galleryMoreTrigger) {
-    galleryMoreTrigger.addEventListener('click', () => {
-      currentPhotoIndex = 4; // index of photo5
+  // Also allow hero image to open lightbox (photo1)
+  const heroImage = document.querySelector('.hero-image');
+  if (heroImage) {
+    heroImage.style.cursor = 'pointer';
+    heroImage.addEventListener('click', () => {
+      currentPhotoIndex = 0;
       openLightbox();
     });
   }

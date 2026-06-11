@@ -110,6 +110,14 @@
     </section>
   </div>
 
+  <!-- Photo Lightbox Modal Overlay -->
+  <div class="lightbox-overlay" id="lightbox" onclick="if(this===event.target) this.classList.remove('active')">
+    <button class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('active')">×</button>
+    <div class="lightbox-content">
+      <img src="" alt="Photo Fullscreen" class="lightbox-img" id="lightbox-img">
+    </div>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>
