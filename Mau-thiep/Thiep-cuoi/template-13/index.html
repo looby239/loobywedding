@@ -413,7 +413,7 @@
       <p class="section-subtitle">Mọi lời chúc mừng và quà tặng đều được trân quý ghi nhận</p>
 
       <div class="gift-registry-trigger-container">
-        <button class="gift-envelope-btn" id="gift-modal-trigger">
+        <button class="gift-envelope-btn" id="gift-modal-trigger" onclick="document.getElementById('gift-modal').classList.add('active')">
           <div class="envelope-character"><i class="fas fa-heart"></i></div>
           <span>Nhấn để mở phong bao mừng cưới</span>
         </button>
@@ -433,7 +433,7 @@
   <!-- Gift Registry Modal Overlay -->
   <div class="gift-modal-overlay" id="gift-modal">
     <div class="gift-modal-card">
-      <button class="gift-modal-close" id="gift-modal-close">×</button>
+      <button class="gift-modal-close" id="gift-modal-close" onclick="document.getElementById('gift-modal').classList.remove('active')">×</button>
       <h3 class="modal-title">Thông Tin Mừng Cưới</h3>
       <div class="bank-accounts-grid">
         <div class="bank-card">
@@ -442,8 +442,10 @@
           <p class="bank-info">BIDV</p>
           <p class="account-number">Số TK: <strong>6745746454465</strong></p>
           <div class="qr-code">
-            <i class="fas fa-qrcode"></i>
-            <span>Mã QR BIDV</span>
+            <img
+              src="../../../assets/images/template-13/qr-bidv.png"
+              alt="Mã QR BIDV Nguyễn Văn An"
+              loading="lazy">
           </div>
           <button class="btn-save-qr" onclick="alert('Đã lưu mã QR BIDV chú rể!')">Lưu mã QR</button>
         </div>
@@ -454,8 +456,10 @@
           <p class="bank-info">MB Bank</p>
           <p class="account-number">Số TK: <strong>0385286659</strong></p>
           <div class="qr-code">
-            <i class="fas fa-qrcode"></i>
-            <span>Mã QR MBBank</span>
+            <img
+              src="../../../assets/images/template-13/qr-mb.png"
+              alt="Mã QR MB Bank Nguyễn Văn An"
+              loading="lazy">
           </div>
           <button class="btn-save-qr" onclick="alert('Đã lưu mã QR MBBank chú rể!')">Lưu mã QR</button>
         </div>
@@ -466,8 +470,10 @@
           <p class="bank-info">Agribank</p>
           <p class="account-number">Số TK: <strong>98897487</strong></p>
           <div class="qr-code">
-            <i class="fas fa-qrcode"></i>
-            <span>Mã QR Agribank</span>
+            <img
+              src="../../../assets/images/template-13/qr-agribank.png"
+              alt="Mã QR Agribank Lê Mỹ Ngọc"
+              loading="lazy">
           </div>
           <button class="btn-save-qr" onclick="alert('Đã lưu mã QR cô dâu!')">Lưu mã QR</button>
         </div>
